@@ -14,7 +14,7 @@ const Home = () => {
         </Helmet>
 
 
-        <Nav />
+
         <Banner />
         <Events />
         <Reviews />

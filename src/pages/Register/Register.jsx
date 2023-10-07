@@ -1,22 +1,90 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import Google from '../../assets/images/google.svg';
 import Github from "../../assets/images/github.svg";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { AiFillEye } from 'react-icons/ai';
 import { AiFillEyeInvisible } from 'react-icons/ai';
-import Nav from '../../components/Nav/Nav';
+import { AuthContext } from '../../context/AuthProvider';
+import { updateProfile } from 'firebase/auth';
+import Swal from 'sweetalert2';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Register = () => {
 
+    const navigate = useNavigate();
+
+    const { createUser } = useContext(AuthContext);
+
+
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const [isPasswordWrong, setIsPasswordWrong] = useState(false);
+
+
+    const handleRegister = e => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+
+        const name = formData.get("name");
+        const photoURL = formData.get("photoURL");
+        const email = formData.get("email");
+        const password = formData.get("password");
+
+
+
+        if (password.length < 6) {
+            toast.error("Password must be 6 character or longer!");
+            setIsPasswordWrong(true);
+            return;
+        }
+
+
+        if (!/^(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).+$/.test(password)) {
+            toast.error("Password should be mixed of capital letters and special characters!");
+            setIsPasswordWrong(true);
+            return;
+        }
+
+        createUser(email, password)
+            .then((result) => {
+                updateProfile(result.user, {
+                    displayName: name, photoURL: photoURL
+                });
+
+                Swal.fire({
+                    title: 'Registered!',
+                    text: 'Your account have been registered successfully!',
+                    icon: "success"
+                })
+                    .then(result => {
+                        if (result.isConfirmed) {
+                            navigate("/")
+                        }
+                    })
+
+
+            })
+            .catch(error => {
+                Swal.fire({
+                    title: "Error",
+                    text: error.message,
+                    icon: "error"
+                })
+            })
+
+
+        //reset password error
+        setIsPasswordWrong(false);
+
+    }
+
 
 
 
     return <>
-
-        <Nav />
 
         <div className=' flex justify-center  my-10  p-2 '>
 
@@ -29,11 +97,16 @@ const Register = () => {
             <div className='w-full md:w-3/4  lg:w-2/5 border shadow-xl px-2 md:px-10 py-12 rounded-xl'>
                 <h3 className='text-3xl md:text-5xl font-bold text-center'>Register</h3>
                 <p className='text-center text-sm md:text-base  my-4 text-gray-500'>Enter your details to register your account!</p>
-                <form >
+                <form onSubmit={handleRegister} >
 
                     <div className='mt-6'>
                         <label className='font-bold text-xl' htmlFor="name">Name</label>
                         <input className='w-full border-2 p-4 outline-none rounded-lg font-bold mt-2' type="text" name="name" id="name" placeholder='Enter your name' required />
+                    </div>
+
+                    <div className='mt-6'>
+                        <label className='font-bold text-xl' htmlFor="name">Photo URL</label>
+                        <input className='w-full border-2 p-4 outline-none rounded-lg font-bold mt-2' type="text" name="photoURL" id="photoURL" placeholder='Provide a photo URL (optional)' />
                     </div>
 
                     <div className='mt-6'>
@@ -42,8 +115,8 @@ const Register = () => {
                     </div>
 
                     <div className='mt-6 relative'>
-                        <label className='font-bold text-xl' htmlFor="email">Password</label>
-                        <input className='w-full border-2 p-4 outline-none rounded-lg font-bold mt-2' type={isPasswordVisible ? "text" : "password"} name="password" id="password" placeholder='Enter password' required />
+                        <label className='font-bold text-xl' htmlFor="password">Password</label>
+                        <input className={`w-full ${isPasswordWrong ? "border-2 border-red-600" : "border-2"} p-4 outline-none rounded-lg font-bold mt-2`} type={isPasswordVisible ? "text" : "password"} name="password" id="password" placeholder='Enter password' required />
                         <span onClick={() => setIsPasswordVisible(!isPasswordVisible)} className='absolute bottom-5 right-3 text-xl text-gray-500 cursor-pointer'>{isPasswordVisible ? <AiFillEye /> : <AiFillEyeInvisible />}</span>
                     </div>
 
@@ -70,7 +143,7 @@ const Register = () => {
 
 
         </div>
-
+        <ToastContainer />
     </>
 }
 

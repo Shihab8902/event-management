@@ -16,7 +16,7 @@ const Events = () => {
     }, [])
 
 
-    console.log(events)
+
 
 
 

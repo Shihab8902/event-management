@@ -1,9 +1,37 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import "./nav.css"
 
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink, Link, useNavigate } from 'react-router-dom'
+import { AuthContext } from '../../context/AuthProvider'
+
+import userPlaceholderImage from "../../assets/images/user.png"
+import Swal from 'sweetalert2'
 
 const Nav = () => {
+
+    const navigate = useNavigate();
+
+    const { user, userSignOut } = useContext(AuthContext);
+    console.log(user)
+
+    const handleLogout = () => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'Are you sure want to logout?',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, confirm!',
+            cancelButtonText: 'No, cancel!',
+            confirmButtonColor: "red"
+        })
+            .then(result => {
+                if (result.isConfirmed) {
+                    userSignOut();
+                    navigate("/")
+                }
+            })
+    }
+
+
 
     const navLinks = <>
         <li><NavLink className='font-bold text-xl lg:p-0 lg:mr-10' to="/">Home</NavLink></li>
@@ -12,6 +40,8 @@ const Nav = () => {
         <li><NavLink className='font-bold text-xl lg:p-0 lg:mr-10' to="/blogs">Dummy</NavLink></li> */}
         <li><NavLink className='font-bold text-xl lg:p-0 lg:mr-10' to="/contact">Contact</NavLink></li>
     </>
+
+
 
     return (
         <div className="navbar bg-base-100 mt-8">
@@ -25,7 +55,7 @@ const Nav = () => {
                         {navLinks}
                     </ul>
                 </div>
-                <Link to="/" className="text-4xl font-extrabold">ByteX</Link>
+                <Link to="/" className="text-xl md:text-4xl font-extrabold">ByteX</Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
@@ -35,7 +65,24 @@ const Nav = () => {
 
 
             <div className="navbar-end">
-                <Link to="/login" className="font-bold text-lg bg-blue-600 text-white px-7 py-3 rounded-lg cursor-pointer">Login</Link>
+                {
+                    user && <div className='mr-4'>
+                        <img className='w-[40px] mx-auto'
+                            src={user?.photoURL || userPlaceholderImage}
+                        />
+                        <p className='font-bold text-sm'>{user?.displayName || "User"}</p>
+                    </div>
+                }
+                {
+                    user ? <button onClick={handleLogout}
+                        className="font-bold text-lg bg-red-600 text-white px-7 py-3 rounded-lg cursor-pointer">
+                        Logout
+                    </button>
+                        :
+                        <button className="font-bold text-lg bg-blue-600 text-white px-7 py-3 rounded-lg cursor-pointer">
+                            <Link to="/login" >Login</Link>
+                        </button>
+                }
             </div>
         </div>
     )

@@ -1,21 +1,58 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import Google from '../../assets/images/google.svg';
 import Github from "../../assets/images/github.svg";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { AiFillEye } from 'react-icons/ai';
 import { AiFillEyeInvisible } from 'react-icons/ai';
-import Nav from '../../components/Nav/Nav';
+import { AuthContext } from '../../context/AuthProvider';
+import Swal from 'sweetalert2';
+
 
 const Login = () => {
+
+    const navigate = useNavigate();
+
+    const { userSignIn } = useContext(AuthContext);
 
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
 
+    const handleLogin = e => {
+        e.preventDefault();
+
+        const formData = new FormData(e.currentTarget);
+        const email = formData.get("email");
+        const password = formData.get("password");
+
+        userSignIn(email, password)
+            .then(() => {
+                Swal.fire({
+                    title: 'Logged in!',
+                    text: 'You have successfully logged in to your account!',
+                    icon: "success"
+                })
+                    .then(result => {
+                        if (result.isConfirmed) {
+                            navigate("/")
+                        }
+                    })
+            })
+
+            .catch(error => {
+                Swal.fire({
+                    title: "Error",
+                    text: error.message,
+                    icon: "error"
+                })
+            })
+
+    }
+
 
     return <>
-        <Nav />
+
 
         <div className=' flex justify-center  my-10  p-2 '>
 
@@ -28,7 +65,7 @@ const Login = () => {
             <div className='w-full md:w-3/4  lg:w-2/5 border shadow-xl px-2 md:px-10 py-12 rounded-xl'>
                 <h3 className='text-3xl md:text-5xl font-bold text-center'>Login</h3>
                 <p className='text-center text-sm md:text-base  my-4 text-gray-500'>Enter your details to login to your account!</p>
-                <form >
+                <form onSubmit={handleLogin}>
 
                     <div className='mt-6'>
                         <label className='font-bold text-xl' htmlFor="email">Email</label>
