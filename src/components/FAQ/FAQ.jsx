@@ -6,7 +6,7 @@ const FAQ = () => {
 
         <div className='my-10'>
             <div className="collapse collapse-plus bg-base-100 mb-3">
-                <input type="radio" name="my-accordion-3" checked="checked" />
+                <input type="radio" name="my-accordion-3" defaultChecked />
                 <div className="collapse-title text-lg font-bold">
                     What is event management, and why is it important?
                 </div>

@@ -7,14 +7,15 @@ const Nav = () => {
 
     const navLinks = <>
         <li><NavLink className='font-bold text-xl lg:p-0 lg:mr-10' to="/">Home</NavLink></li>
-        <li><NavLink className='font-bold text-xl lg:p-0 lg:mr-10' to="/blogs">Blogs</NavLink></li>
+        <li><NavLink className='font-bold text-xl lg:p-0 lg:mr-10' to="/about">About</NavLink></li>
         {/* <li><NavLink className='font-bold text-xl lg:p-0 lg:mr-10' to="/blogs">Dummy</NavLink></li>
         <li><NavLink className='font-bold text-xl lg:p-0 lg:mr-10' to="/blogs">Dummy</NavLink></li> */}
-        <li><NavLink className='font-bold text-xl lg:p-0 lg:mr-10' to="/about">About</NavLink></li>
+        <li><NavLink className='font-bold text-xl lg:p-0 lg:mr-10' to="/contact">Contact</NavLink></li>
     </>
 
     return (
         <div className="navbar bg-base-100 mt-8">
+
             <div className="navbar-start">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -31,8 +32,10 @@ const Nav = () => {
                     {navLinks}
                 </ul>
             </div>
+
+
             <div className="navbar-end">
-                <a className="font-bold text-lg bg-blue-600 text-white px-7 py-3 rounded-lg cursor-pointer">Login</a>
+                <Link to="/login" className="font-bold text-lg bg-blue-600 text-white px-7 py-3 rounded-lg cursor-pointer">Login</Link>
             </div>
         </div>
     )
