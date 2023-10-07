@@ -1,0 +1,23 @@
+[
+  {
+    "clientName": "Alice Johnson",
+    "clientOccupation": "Tech Startup CEO",
+    "ratings": 5,
+    "image": "https://i.ibb.co/kJnq7cb/girl2.jpg",
+    "description": "ByteX delivered an exceptional event for our tech startup's product launch. Their attention to detail and creativity in designing the event space was truly impressive. Highly recommended!"
+  },
+  {
+    "clientName": "Mark Rodriguez",
+    "clientOccupation": "Game Developer",
+    "ratings": 4,
+    "image": "https://i.ibb.co/KWBtQQ4/man1.jpg",
+    "description": "Working with ByteX for our annual game developers' conference was a great decision. ByteX's team went above and beyond to ensure our event ran smoothly. Overall, a fantastic choice for game-related events."
+  },
+  {
+    "clientName": "Sarah Lee",
+    "clientOccupation": "Coding Instructor",
+    "ratings": 5,
+    "image": "https://i.ibb.co/Tv0crSr/girl1.jpg",
+    "description": "ByteX made our coding bootcamp graduation ceremony unforgettable. The students and their families were genuinely impressed. Highly recommended!"
+  }
+]

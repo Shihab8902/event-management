@@ -21,8 +21,8 @@ const Events = () => {
 
 
 
-    return <div className='mt-28'>
-        <h3 className='text-5xl font-bold text-center '>Our Services</h3>
+    return <div className='mt-28 px-5'>
+        <h3 className='text-3xl md:text-5xl font-bold text-center '>Our Services</h3>
         <p className='text-center font-semibold  text-gray-500 my-5'>Turn your visions into memorable events with our services. <br />
             Let's Create Your Perfect Experience!</p>
 

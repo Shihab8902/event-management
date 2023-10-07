@@ -8,7 +8,7 @@ import slider3 from "../../assets/images/slider3.jpg"
 
 const Banner = () => {
     return (
-        <Carousel className='my-10 rounded-2xl'
+        <Carousel className='my-10 rounded-2xl px-5'
             infiniteLoop={true}
             autoPlay={true}
             showThumbs={false}
