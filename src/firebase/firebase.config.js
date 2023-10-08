@@ -3,12 +3,12 @@ import { getAuth } from "firebase/auth";
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBLyGnAbpO0ffzA4FiOPfnJt2DSY2qRdEg",
-    authDomain: "bytex-73f35.firebaseapp.com",
-    projectId: "bytex-73f35",
-    storageBucket: "bytex-73f35.appspot.com",
-    messagingSenderId: "183066041332",
-    appId: "1:183066041332:web:f88d73f38cca85f8e477a1"
+    apiKey: import.meta.env.VITE_API_KEY,
+    authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_APP_ID
 };
 
 

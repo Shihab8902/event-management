@@ -60,7 +60,7 @@ const Login = () => {
             .then(() => {
                 Swal.fire({
                     title: 'Registered!',
-                    text: 'Your account has been registered successfully!',
+                    text: 'You have successfully logged in to your account!',
                     icon: "success"
                 })
                     .then(result => {
@@ -86,7 +86,7 @@ const Login = () => {
             .then(() => {
                 Swal.fire({
                     title: 'Registered!',
-                    text: 'Your account has been registered successfully!',
+                    text: 'You have successfully logged in to your account!',
                     icon: "success"
                 })
                     .then(result => {
