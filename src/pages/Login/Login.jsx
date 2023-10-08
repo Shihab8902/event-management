@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import Google from '../../assets/images/google.svg';
 import Github from "../../assets/images/github.svg";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { AiFillEye } from 'react-icons/ai';
 import { AiFillEyeInvisible } from 'react-icons/ai';
@@ -13,8 +13,10 @@ import Swal from 'sweetalert2';
 const Login = () => {
 
     const navigate = useNavigate();
+    const location = useLocation();
 
-    const { userSignIn } = useContext(AuthContext);
+
+    const { userSignIn, googleSignIn, githubSignIn, user } = useContext(AuthContext);
 
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -35,7 +37,7 @@ const Login = () => {
                 })
                     .then(result => {
                         if (result.isConfirmed) {
-                            navigate("/")
+                            location.state ? navigate(location.state) : navigate("/")
                         }
                     })
             })
@@ -48,6 +50,58 @@ const Login = () => {
                 })
             })
 
+    }
+
+
+
+    //Register with google
+    const handleGoogleLogin = () => {
+        googleSignIn()
+            .then(() => {
+                Swal.fire({
+                    title: 'Registered!',
+                    text: 'Your account has been registered successfully!',
+                    icon: "success"
+                })
+                    .then(result => {
+                        if (result.isConfirmed) {
+                            location.state ? navigate(location.state) : navigate("/")
+                        }
+                    })
+            })
+            .catch(error => {
+                Swal.fire({
+                    title: "Error",
+                    text: error.message,
+                    icon: "error"
+                })
+            })
+    }
+
+
+
+    //Register with github
+    const handleGithubLogin = () => {
+        githubSignIn()
+            .then(() => {
+                Swal.fire({
+                    title: 'Registered!',
+                    text: 'Your account has been registered successfully!',
+                    icon: "success"
+                })
+                    .then(result => {
+                        if (result.isConfirmed) {
+                            location.state ? navigate(location.state) : navigate("/")
+                        }
+                    })
+            })
+            .catch(error => {
+                Swal.fire({
+                    title: "Error",
+                    text: error.message,
+                    icon: "error"
+                })
+            })
     }
 
 
@@ -87,16 +141,16 @@ const Login = () => {
                 <div className='mt-5'>
                     <p className='text-center font-semibold text-lg'>Or continue with</p>
                     <div className='flex items-center justify-center gap-7 mt-5'>
-                        <button>
+                        <button onClick={handleGoogleLogin} title='Google'>
                             <img className='w-[50px]' src={Google} alt="Google" />
                         </button>
 
-                        <button>
+                        <button onClick={handleGithubLogin} title='Github'>
                             <img className='w-[50px]' src={Github} alt="Github" />
                         </button>
                     </div>
                 </div>
-                <p className='mt-7 text-center font-semibold'>Need an account? <Link to="/register" className='text-blue-700 hover:underline'>Register</Link> </p>
+                <p className='mt-7 text-center font-semibold'>Need an account? <Link state={location.state} to="/register" className='text-blue-700 hover:underline'>Register</Link> </p>
             </div>
 
 

@@ -36,8 +36,12 @@ const Nav = () => {
     const navLinks = <>
         <li><NavLink className='font-bold text-xl lg:p-0 lg:mr-10' to="/">Home</NavLink></li>
         <li><NavLink className='font-bold text-xl lg:p-0 lg:mr-10' to="/about">About</NavLink></li>
-        {/* <li><NavLink className='font-bold text-xl lg:p-0 lg:mr-10' to="/blogs">Dummy</NavLink></li>
-        <li><NavLink className='font-bold text-xl lg:p-0 lg:mr-10' to="/blogs">Dummy</NavLink></li> */}
+        {
+            user && <>
+                <li><NavLink className='font-bold text-xl lg:p-0 lg:mr-10' to="/bookings">Bookings</NavLink></li>
+                <li><NavLink className='font-bold text-xl lg:p-0 lg:mr-10' to="/blogs">Blogs</NavLink></li>
+            </>
+        }
         <li><NavLink className='font-bold text-xl lg:p-0 lg:mr-10' to="/contact">Contact</NavLink></li>
     </>
 
@@ -67,7 +71,7 @@ const Nav = () => {
             <div className="navbar-end">
                 {
                     user && <div className='mr-4'>
-                        <img className='w-[40px] mx-auto'
+                        <img className='w-[40px] mx-auto rounded-full'
                             src={user?.photoURL || userPlaceholderImage}
                         />
                         <p className='font-bold text-sm'>{user?.displayName || "User"}</p>

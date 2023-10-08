@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import Google from '../../assets/images/google.svg';
 import Github from "../../assets/images/github.svg";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { AiFillEye } from 'react-icons/ai';
 import { AiFillEyeInvisible } from 'react-icons/ai';
@@ -16,8 +16,9 @@ import 'react-toastify/dist/ReactToastify.css';
 const Register = () => {
 
     const navigate = useNavigate();
+    const location = useLocation();
 
-    const { createUser } = useContext(AuthContext);
+    const { createUser, googleSignIn, githubSignIn } = useContext(AuthContext);
 
 
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -56,12 +57,12 @@ const Register = () => {
 
                 Swal.fire({
                     title: 'Registered!',
-                    text: 'Your account have been registered successfully!',
+                    text: 'Your account has been registered successfully!',
                     icon: "success"
                 })
                     .then(result => {
                         if (result.isConfirmed) {
-                            navigate("/")
+                            location.state ? navigate(location.state) : navigate("/")
                         }
                     })
 
@@ -79,6 +80,57 @@ const Register = () => {
         //reset password error
         setIsPasswordWrong(false);
 
+    }
+
+
+
+    //Register with google
+    const handleGoogleLogin = () => {
+        googleSignIn()
+            .then(() => {
+                Swal.fire({
+                    title: 'Registered!',
+                    text: 'Your account has been registered successfully!',
+                    icon: "success"
+                })
+                    .then(result => {
+                        if (result.isConfirmed) {
+                            location.state ? navigate(location.state) : navigate("/")
+                        }
+                    })
+            })
+            .catch(error => {
+                Swal.fire({
+                    title: "Error",
+                    text: error.message,
+                    icon: "error"
+                })
+            })
+    }
+
+
+    //Register with github
+    const handleGithubLogin = () => {
+        githubSignIn()
+            .then(() => {
+                Swal.fire({
+                    title: 'Registered!',
+                    text: 'Your account has been registered successfully!',
+                    icon: "success"
+                })
+                    .then(result => {
+                        if (result.isConfirmed) {
+                            location.state ? navigate(location.state) : navigate("/")
+                        }
+                    })
+            })
+            .catch(error => {
+                Swal.fire({
+                    title: "Error",
+                    text: error.message,
+                    icon: "error"
+                })
+            })
     }
 
 
@@ -129,11 +181,11 @@ const Register = () => {
                 <div className='mt-5'>
                     <p className='text-center font-semibold text-lg'>Or sign up with</p>
                     <div className='flex items-center justify-center gap-7 mt-5'>
-                        <button>
+                        <button onClick={handleGoogleLogin} title='Google'>
                             <img className='w-[50px]' src={Google} alt="Google" />
                         </button>
 
-                        <button>
+                        <button onClick={handleGithubLogin} title='Github'>
                             <img className='w-[50px]' src={Github} alt="Github" />
                         </button>
                     </div>

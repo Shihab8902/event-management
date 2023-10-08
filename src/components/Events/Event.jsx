@@ -2,9 +2,14 @@ import React, { useEffect } from 'react'
 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { useNavigate } from 'react-router-dom';
 
 const Event = ({ event }) => {
-    const { image, eventName, eventType, price, description } = event;
+    const { image, eventName, eventType, price, description, id } = event;
+
+
+    const navigate = useNavigate();
+
 
 
     //Initialize AOS package 
@@ -27,7 +32,8 @@ const Event = ({ event }) => {
                 description.length > 150 ? <p >{description.slice(0, 150)}....</p> : <p>{description}</p>
             }
         </div>
-        <button className='w-full bg-blue-600 text-white font-bold  py-4 rounded-lg uppercase'>View Details</button>
+        <button onClick={() => navigate(`/event/${id}`)}
+            className='w-full bg-blue-600 text-white font-bold  py-4 rounded-lg uppercase'>View Details</button>
     </div>
 }
 
