@@ -36,10 +36,10 @@ const EventDetails = () => {
     return <>
 
         <Helmet>
-            <title>ByteX-{eventName}</title>
+            <title>{eventName}</title>
         </Helmet>
 
-        <div className='mt-12 mb-20'>
+        <div className='mt-12 mb-20 container mx-auto'>
             <div>
                 <img className='w-full max-h-[500px] rounded-lg' src={image} alt="Image unavailable" />
             </div>

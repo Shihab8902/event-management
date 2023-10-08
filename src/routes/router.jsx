@@ -9,6 +9,7 @@ import Register from "../pages/Register/Register";
 import PrivateRoute from "../components/PrivateRoute/PrivateRoute";
 import Bookings from "../pages/Bookings/Bookings";
 import EventDetails from "../components/Events/EventDetails";
+import BlogDetails from "../pages/Blogs/BlogDetails";
 
 
 export const router = createBrowserRouter([
@@ -44,7 +45,8 @@ export const router = createBrowserRouter([
                 path: "/blogs",
                 element: <PrivateRoute>
                     <Blogs />
-                </PrivateRoute>
+                </PrivateRoute>,
+                loader: () => fetch("../blogs.json")
             },
             {
                 path: "/event/:id",
@@ -52,6 +54,11 @@ export const router = createBrowserRouter([
                     <EventDetails />
                 </PrivateRoute>,
                 loader: () => fetch("../events.json")
+            },
+            {
+                path: "/blog/:id",
+                element: <BlogDetails />,
+                loader: () => fetch("../blogs.json")
             }
         ]
     }

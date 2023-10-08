@@ -8,17 +8,19 @@ import FAQ from '../../components/FAQ/FAQ'
 import Footer from '../../components/Footer/Footer'
 
 const Home = () => {
-    return <section>
+    return <section >
         <Helmet>
             <title>ByteX-home</title>
         </Helmet>
 
+        <div className='container mx-auto'>
+            <Banner />
+            <Events />
+            <Reviews />
+            <FAQ />
+        </div>
 
 
-        <Banner />
-        <Events />
-        <Reviews />
-        <FAQ />
         <Footer />
     </section>
 }

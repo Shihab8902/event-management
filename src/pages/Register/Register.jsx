@@ -138,7 +138,7 @@ const Register = () => {
 
     return <>
 
-        <div className=' flex justify-center  my-10  p-2 '>
+        <div className=' flex justify-center  my-10  p-2 container mx-auto '>
 
             <Helmet>
                 <title>ByteX-user registration</title>
