@@ -12,7 +12,7 @@ const Nav = () => {
     const navigate = useNavigate();
 
     const { user, userSignOut } = useContext(AuthContext);
-    console.log(user)
+
 
     const handleLogout = () => {
         Swal.fire({

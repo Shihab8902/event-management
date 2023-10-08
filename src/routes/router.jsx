@@ -37,7 +37,8 @@ export const router = createBrowserRouter([
                 path: "/bookings",
                 element: <PrivateRoute>
                     <Bookings />
-                </PrivateRoute>
+                </PrivateRoute>,
+                loader: () => fetch("../events.json")
             },
             {
                 path: "/blogs",
